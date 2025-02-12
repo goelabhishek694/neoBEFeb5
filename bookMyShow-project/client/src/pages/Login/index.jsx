@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
+const onFinish = (values) => {
+  console.log('Success:', values);
+};
 
 
 function Login() {
@@ -9,7 +12,9 @@ function Login() {
      <main className="App-header">
        <h1>Login to BookMyShow</h1>
        <section className="mw-500 text-center px-3">
-         <Form layout="vertical">
+         <Form layout="vertical"
+         onFinish={onFinish}
+         >
            <Form.Item
              label="Email"
              htmlFor="email"
