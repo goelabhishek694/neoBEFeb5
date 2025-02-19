@@ -1,8 +1,21 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { Link } from "react-router-dom";
-const onFinish = (values) => {
-  console.log('Success:', values);
+import { RegisterUser } from "../../api/users";
+
+const onFinish = async (values) => {
+  // console.log('Success:', values);
+  try{
+    const response = await RegisterUser(values);
+    console.log(response);
+    if(response.status === 201) {
+      message.success(response.message);
+    }else{
+      message.error(response.message);
+    }
+  }catch(err){
+    message.error(err.message);
+  }
 };
 
 

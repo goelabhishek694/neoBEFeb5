@@ -1,3 +1,4 @@
+const { timeStamp } = require("console");
 const mongoose = require("mongoose");
 const path = require("path");
 let collectionName = path.basename(__filename).split(".")[0];
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: "user"
     }
-});
+}, { timestamps: true });
 
 const UserModel = mongoose.model(collectionName, userSchema);
 
