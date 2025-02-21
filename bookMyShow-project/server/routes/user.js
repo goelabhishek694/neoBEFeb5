@@ -8,6 +8,6 @@ userRouter.post("/register", registerUser);
 
 userRouter.post("/login",loginUser);
 
-userRouter.get("/:id", authMiddleware, currentUser);
+userRouter.get("/current", authMiddleware, currentUser);
 
 module.exports = userRouter;

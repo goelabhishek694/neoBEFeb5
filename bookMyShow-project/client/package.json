@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@reduxjs/toolkit": "^2.5.1",
     "antd": "^5.24.0",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1"
   },

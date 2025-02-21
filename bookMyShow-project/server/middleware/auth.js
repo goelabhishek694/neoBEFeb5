@@ -9,10 +9,8 @@ const authMiddleware = async (req, res, next) => {
     console.log("from middleware", token);
     const verifiedToken = jwt.verify(token, privateKey);
     console.log(verifiedToken);
-    if(req.params.id == verifiedToken.userId) next();
-    else return res.status(401).json({
-        message:"Not authorized"
-    })
+    req.body.id = verifiedToken.userId 
+    next();
     }catch(err){
         return res.status(500).json({
             message:err.message
