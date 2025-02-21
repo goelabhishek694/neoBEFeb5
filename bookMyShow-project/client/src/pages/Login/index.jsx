@@ -11,6 +11,7 @@ function Login() {
           console.log(response);
           if(response.status === 200) {
             message.success(response.message);
+            localStorage.setItem("token", response.data);
             navigate("/")
           }else{
             message.error(response.message);
