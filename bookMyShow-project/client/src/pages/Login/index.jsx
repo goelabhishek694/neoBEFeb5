@@ -8,8 +8,8 @@ function Login() {
   const onFinish = async (values) => {
     try{
       const response = await LoginUser(values);
-          console.log(response);
-          if(response.status === 200) {
+          console.log(JSON.stringify(response));
+          if(response.data) {
             message.success(response.message);
             localStorage.setItem("token", response.data);
             navigate("/")

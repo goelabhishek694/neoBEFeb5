@@ -23,8 +23,7 @@ const registerUser = async (req, res) => {
         // Send a response to the user that Registration Successful, Please login
         // write code
         return res.status(201).json({
-            message: "User registered succesfully",
-            data:token
+            message: "User registered succesfully"
         })
     }catch(err){
         console.log(err);
@@ -36,6 +35,7 @@ const registerUser = async (req, res) => {
 
 const loginUser =  async (req, res) => {
     try{
+        console.log(req.headers);
         const {email,password: passwordFromClient} = req.body;
         const user = await UserModel.findOne({email});
         
@@ -49,7 +49,7 @@ const loginUser =  async (req, res) => {
                 message: "invalid credentials"
             });
         }
-        const token = jwt.sign({userId:newUser["_id"]}, privateKey, {expiresIn:"1d"});
+        const token = jwt.sign({userId:user["_id"]}, privateKey, {expiresIn:"1d"});
         console.log(token);
         return res.status(200).json({
             message: "User logged in succesfully",
@@ -63,7 +63,30 @@ const loginUser =  async (req, res) => {
     }
 }
 
+const currentUser = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const user = await UserModel.findById(id);
+        if(user){
+            return res.status(200).json({
+                message: "User details",
+                user
+            })
+        }else{
+            return res.status(204).json({
+                message: "User not found",
+            }) 
+        }
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({
+            message: err.message,
+        }) 
+    }
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    currentUser
 }
