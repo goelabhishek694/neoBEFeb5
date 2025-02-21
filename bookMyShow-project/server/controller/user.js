@@ -70,7 +70,7 @@ const currentUser = async (req, res) => {
         if(user){
             return res.status(200).json({
                 message: "User details",
-                user
+                data: user
             })
         }else{
             return res.status(204).json({
