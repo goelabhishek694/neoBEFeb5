@@ -82,6 +82,9 @@ const deleteMovie = async (req,res) => {
 }
 
 module.exports = {
-    addMovie
+    addMovie,
+    getAllMovies,
+    updateMovie,
+    deleteMovie
 }
 
