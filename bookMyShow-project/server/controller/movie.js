@@ -47,8 +47,8 @@ const getAllMovies = async (req,res) => {
 
 const updateMovie = async (req,res) => {
     try{
-        const {body:{movieId}} = req;
-        const updatedMovie = await MovieModel.findByIdAndUpdate(movieId, body);
+        const {body} = req;
+        const updatedMovie = await MovieModel.findByIdAndUpdate(body.movieId, body);
         if(!updatedMovie){
             res.status(400).json({
                 message:"movie not found"
@@ -70,9 +70,13 @@ const updateMovie = async (req,res) => {
 
 const deleteMovie = async (req,res) => {
     try{
-        const {moviedId} = req.body;
-        const deletedMovie = await MovieModel.findByIdAndDelete(moviedId);
-        
+        const {movieId} = req.params;    
+        const deletedMovie = await MovieModel.findOneAndDelete({_id:movieId});
+        res.status(200).json({
+            success: true,
+            message:"movie deleted",
+            data: deletedMovie
+        })
     }catch(err){
         res.send({
             success: false,
