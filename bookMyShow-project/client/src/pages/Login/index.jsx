@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../../api/users";
@@ -8,7 +8,6 @@ function Login() {
   const onFinish = async (values) => {
     try{
       const response = await LoginUser(values);
-          console.log(JSON.stringify(response));
           if(response.data) {
             message.success(response.message);
             localStorage.setItem("token", response.data);
@@ -19,7 +18,12 @@ function Login() {
     }catch(err){
       message.error(err.message)
     }
-  };
+  }; 
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
  return (
    <>
      <main className="App-header">

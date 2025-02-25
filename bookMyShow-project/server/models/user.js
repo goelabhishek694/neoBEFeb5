@@ -1,4 +1,3 @@
-const { timeStamp } = require("console");
 const mongoose = require("mongoose");
 const path = require("path");
 let collectionName = path.basename(__filename).split(".")[0];

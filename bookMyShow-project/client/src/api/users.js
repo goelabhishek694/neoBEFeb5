@@ -7,6 +7,7 @@ export const RegisterUser = async (value) => {
         return response.data;
     }catch(err){
         console.log(err);
+        return err.response.data;
     }
 }
 
@@ -16,6 +17,7 @@ export const LoginUser = async (value) => {
         return response.data;
     }catch(err){
         console.log(err);
+        return err.response.data;
     }
 }
 
@@ -25,5 +27,6 @@ export const GetCurrentUser = async (value) => {
         return response.data;
     }catch(err){
         console.log(err);
+        return err.response.data;
     }
 }
