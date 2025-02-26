@@ -2,37 +2,37 @@ const mongoose = require("mongoose");
 const path = require("path");
 let collectionName = path.basename(__filename).split(".")[0];
 
-const movieSchema = new mongoose.Schema({
+const theatreSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
     },
-    description:{
+    address:{
         type: String,
         required: true
     },
-    duration:{
+    phone:{
         type: Number,
         required: true
     },
-    genre:{
+    email:{
         type: String,
         required: true,
     },
-    language:{
-        type: String,
+    seats:{
+        type: Number,
+        // required: true,
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    releaseDate:{
-        type: Date,
-        required: true
+    isActive:{
+        type: Boolean,
+        default: false
     },
-    poster:{
-        type: String,
-        required: true
-    }
 }, { timestamps: true });
 
-const MovieModel = mongoose.model(collectionName, movieSchema);
+const TheatreModel = mongoose.model(collectionName, theatreSchema);
 
-module.exports = MovieModel;
+module.exports = TheatreModel;

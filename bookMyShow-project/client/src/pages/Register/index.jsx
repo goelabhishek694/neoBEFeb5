@@ -1,25 +1,34 @@
-import React from "react";
-import { Button, Form, Input, message } from "antd";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Button, Form, Input, message, Radio } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../api/users";
 
-const onFinish = async (values) => {
-  // console.log('Success:', values);
-  try{
-    const response = await RegisterUser(values);
-    console.log(response);
-    if(response.status === 201) {
-      message.success(response.message);
-    }else{
-      message.error(response.message);
-    }
-  }catch(err){
-    message.error(err.message);
-  }
-};
 
 
 function Register() {
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    // console.log('Success:', values);
+    try{
+      const response = await RegisterUser(values);
+      console.log(response);
+      if(response.status === 201) {
+        message.success(response.message);
+        navigate("/login")
+      }else{
+        message.error(response.message);
+      }
+    }catch(err){
+      message.error(err.message);
+    }
+  };
+  
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      navigate("/")
+    }
+  },[]);
  return (
    <>
      <main className="App-header">
@@ -81,6 +90,26 @@ function Register() {
                Register
              </Button>
            </Form.Item>
+           <Form.Item
+                label="Register as a Partner"
+                htmlFor="role"
+                name="role"
+                className="d-block text-center"
+                initialValue={false}
+                rules={[{ required: true, message: "Please select an option!" }]}
+              >
+                <div className="d-flex justify-content-start">
+               
+                  <Radio.Group
+                    name="radiogroup"
+                    className="flex-start"
+                  >
+                    <Radio value={'partner'}>Yes</Radio>
+                    <Radio value={'user'}>No</Radio>
+                  </Radio.Group>
+                </div>
+              </Form.Item>
+
          </Form>
          <div>
            <p>

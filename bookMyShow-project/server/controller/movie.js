@@ -1,7 +1,4 @@
 const MovieModel = require("../models/movie");
-const jwt = require("jsonwebtoken");
-require('dotenv').config({path:"../.env"});
-const privateKey = process.env.JWT_KEY;
 
 const addMovie = async (req,res) => {
     try{
@@ -32,7 +29,7 @@ const getAllMovies = async (req,res) => {
         }
         res.status(200).json({
             success: true,
-            message:"new movie added",
+            message:"all movies",
             data: allMovies
         })
     }catch(err){

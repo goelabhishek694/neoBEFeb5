@@ -19,9 +19,11 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<Admin/>} />
-          <Route path="/partner" element={<Partner/>} />
-          <Route path="/profile" element={<User/>} />
+          <Route path="/admin" element={<ProtectedRoute><Admin/></ProtectedRoute>} />
+          <Route path="/partner" element={<ProtectedRoute><Partner/></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><User/></ProtectedRoute>} />
+          {/* <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie/></ProtectedRoute>} />
+          <Route path="/book-show/:id" element={<ProtectedRoute><BookShow/></ProtectedRoute>} /> */}
         </Routes>
       </BrowserRouter>
     </div>
