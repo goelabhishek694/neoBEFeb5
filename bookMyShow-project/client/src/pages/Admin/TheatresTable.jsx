@@ -10,6 +10,8 @@ function TheatresTable() {
     dispatch(showLoading());
     const response = await getAllTheatres();
     const allTheatres = response.data;
+    console.log(allTheatres);
+    
     setTheatres(
       allTheatres.map(function (item) {
         return { ...item, key: `theatre${item._id}` };

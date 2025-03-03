@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, message } from "antd";
 import TheatreFormModal from "./TheatreFormModal";
 import DeleteTheatreModal from "./DeleteTheatreModal";
+import ShowModal from "./ShowModal";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { partnerTheatres } from "../../api/theatre";
 import { useSelector, useDispatch } from "react-redux";
@@ -138,11 +139,19 @@ function TheatreList() {
 
       {isDeleteModalOpen && (
         <DeleteTheatreModal
-        isDeleteModalOpen={isDeleteModalOpen}
-        selectedTheatre={selectedTheatre}
-        setIsDeleteModalOpen={setIsDeleteModalOpen}
-        setSelectedTheatre={setSelectedTheatre}
-        getData={getData}
+          isDeleteModalOpen={isDeleteModalOpen}
+          selectedTheatre={selectedTheatre}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          setSelectedTheatre={setSelectedTheatre}
+          getData={getData}
+        />
+      )}
+
+      {isShowModalOpen && (
+        <ShowModal
+          isShowModalOpen={isShowModalOpen}
+          selectedTheatre={selectedTheatre}
+          setIsShowModalOpen={setIsShowModalOpen}
         />
       )}
     </>
