@@ -21,11 +21,11 @@ const updateShow = async (req, res) => {
     const { body } = req;
     const updatedShow = await ShowModel.findByIdAndUpdate(body.showId, body);
     if (!updatedShow) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "show not found",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "show updated",
       data: updatedShow,
@@ -79,19 +79,47 @@ const getAllShowsByMovie = async (req, res) => {
   try {
     const { movie, date } = req.body;
     const shows = await ShowModel.find({ movie, date }).populate("theatre");
+    console.log("all shows", shows);
+    
     //filter out the unique theatres
-    // let uniqueTheatres = [];
-    // shows.forEach((show) => {
-
-    // })
+    let uniqueTheatres = [];
+    shows.forEach((show) => {
+      console.log(show.theatre.id);
+      
+      let isTheatre = uniqueTheatres.find((theatre => theatre.id === show.theatre.id));
+      if(!isTheatre){
+        let showsOfThisTheatre = shows.filter((showObj) => showObj.theatre.id === show.theatre.id);
+        uniqueTheatres.push({
+          ...show.theatre._doc,
+          shows: showsOfThisTheatre
+        });
+      }
+    })
     res.status(200).json({
       success: true,
       message: "sent show of theatre",
-      data: shows,
+      data: uniqueTheatres,
     });
   } catch (err) {
     res.send({
       status: false,
+      message: err.message,
+    });
+  }
+};
+
+const getShowById = async (req, res) => {
+  try {
+    const { showId } = req.params;
+    const show = await ShowModel.findById(showId);
+    res.status(200).json({
+      success: true,
+      message: "show found",
+      data: show,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
       message: err.message,
     });
   }
@@ -103,4 +131,5 @@ module.exports = {
   deleteShow,
   getAllShowsByTheatre,
   getAllShowsByMovie,
+  getShowById
 };

@@ -10,9 +10,9 @@ export const addShow = async (value) => {
     }
 }
 
-export const updateShow = async () => {
+export const updateShow = async (value) => {
     try{
-        const response = await axiosInstance.put("/api/shows")
+        const response = await axiosInstance.put("/api/shows", value)
         return response.data
     }catch(err){
         console.log(err);
@@ -47,6 +47,17 @@ export const getAllTheatresByMovie = async (value) => {
     try{
         console.log("hello",value);
         const response = await axiosInstance.post(`/api/shows/of-theatre`, value)
+        return response.data
+    }catch(err){
+        console.log(err);
+        return err.response.data
+    }
+}
+
+export const getShowById = async (obj) => {
+    try{
+        console.log("hello",obj);
+        const response = await axiosInstance.get(`/api/shows/${obj.showId}`,)
         return response.data
     }catch(err){
         console.log(err);

@@ -79,7 +79,7 @@ const ShowModal = ({
         response = await updateShow({
           ...values,
           showId: selectedShow._id,
-          theatre: selectedTheatre._id,
+          // theatreId: selectedTheatre._id,
         });
       }
       if (response.success) {
