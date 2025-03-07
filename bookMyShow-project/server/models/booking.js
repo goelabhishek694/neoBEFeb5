@@ -5,11 +5,11 @@ let collectionName = path.basename(__filename).split(".")[0];
 const bookingSchema = new mongoose.Schema({
     show:{
         type: mongoose.Types.ObjectId,
-        ref: "shows"
+        ref: "show"
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "user"
     },
     seats:{
         type: Array,

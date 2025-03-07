@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { type } = require("os");
 const path = require("path");
 let collectionName = path.basename(__filename).split(".")[0];
 // let collectionName = path.basename(__filename).slice(0,4);
@@ -23,7 +24,9 @@ const userSchema = new mongoose.Schema({
         enum: ["admin", "user", "partner"],
         required: true,
         default: "user"
-    }
+    },
+    otp: String,
+    otpExpiry: Date
 }, { timestamps: true });
 
 const UserModel = mongoose.model(collectionName, userSchema);

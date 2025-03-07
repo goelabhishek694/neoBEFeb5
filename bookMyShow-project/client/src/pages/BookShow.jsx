@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../redux/loaderSlice";
 import { getShowById } from "../api/shows";
+import { makePayment, bookShow } from "../api/bookings";
 import { useNavigate, useParams } from "react-router-dom";
 import { message, Card, Row, Col, Button } from "antd";
 import moment from 'moment';
@@ -33,9 +34,45 @@ const BookShow = () => {
     }
 
     const onToken = async (token) => {
-        
-        console.log(token);
-        //make payment api
+        try{
+            console.log("hi i am here");
+            
+            dispatch(showLoading())
+            const amount = selectedSeats.length * show.ticketPrice*100;
+            const response = await makePayment({token, amount});
+            book(response.data);
+            if(response.success){
+                message.success(response.message);
+            } else {
+                message.error(response.message);
+            }
+        }catch(err){
+
+        }finally{
+            dispatch(hideLoading())
+        }
+    }
+
+    const book = async (transactionId) => {
+        try{
+            dispatch(showLoading());
+            const response = await bookShow({
+                show: params.id,
+                transactionId,
+                seats: selectedSeats,
+                user: user._id
+            });
+            if(response.success){
+                message.success(response.message);
+                navigate("/profile");
+            } else {
+                message.error(response.message);
+            }
+        }catch(err){
+            message.error(err.message);
+        }finally{
+            dispatch(hideLoading())
+        }
     }
 
     const getSeats = () => {

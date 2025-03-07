@@ -14,7 +14,7 @@ app.use("/api/users", userRouter);
 app.use("/api/movies", MovieRouter);
 app.use("/api/theatres", TheatreRouter);
 app.use("/api/shows", ShowRouter);
-app.use("/api/booking", BookingRouter);
+app.use("/book-show/api/bookings", BookingRouter);
 
 
 app.listen(process.env.PORT || 8080, () => {

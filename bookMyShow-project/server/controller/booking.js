@@ -1,6 +1,6 @@
-const stripe = require("stripe");
 require("dotenv").config({ path: "../.env" });
 const stripeKey = process.env.STRIPE_KEY;
+const stripe = require("stripe")(stripeKey);
 const BookingModel = require("../models/booking");
 const ShowModel = require("../models/show");
 
@@ -25,7 +25,7 @@ const makePayment = async (req, res) => {
 
     res.send({
       success: true,
-      message: "payment Successfull! Ticket(s) Booked",
+      message: "Payment Successful! Ticket(s) Booked",
       data: transactionId,
     });
   } catch (err) {
@@ -47,7 +47,7 @@ const bookShow = async (req, res) => {;
     await ShowModel.findByIdAndUpdate(show, { bookedSeats: updatedBookSeats });
     res.send({
       success: true,
-      message: "new booking done",
+      message: "Booking done !",
       data: newBooking,
     });
   } catch (err) {
@@ -67,14 +67,14 @@ const getAllBookings = async (req, res) => {
         path: "show",
         populate: {
           path: "movie",
-          model: "movies",
+          model: "movie",
         },
       })
       .populate({
         path: "show",
         populate: {
           path: "theatre",
-          model: "theatres",
+          model: "theatre",
         },
       });
     res.send({
