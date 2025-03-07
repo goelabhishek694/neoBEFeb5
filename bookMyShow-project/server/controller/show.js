@@ -111,7 +111,7 @@ const getAllShowsByMovie = async (req, res) => {
 const getShowById = async (req, res) => {
   try {
     const { showId } = req.params;
-    const show = await ShowModel.findById(showId);
+    const show = await ShowModel.findById(showId).populate("theatre").populate("movie");;
     res.status(200).json({
       success: true,
       message: "show found",

@@ -8,7 +8,7 @@ const {
 
 bookingRouter.post("/make-payment", authMiddleware, makePayment);
 bookingRouter.post("/book-show", bookShow);
-bookingRouter.get("/all", getAllBookings);
+bookingRouter.get("/all", authMiddleware, getAllBookings);
 
 
 module.exports = bookingRouter;
