@@ -3,7 +3,7 @@ const stripeKey = process.env.STRIPE_KEY;
 const stripe = require("stripe")(stripeKey);
 const BookingModel = require("../models/booking");
 const ShowModel = require("../models/show");
-
+const emailHelper = require("../utils/emailHelper");
 const makePayment = async (req, res) => {
   try {
     const { token, amount } = req.body;
@@ -45,6 +45,25 @@ const bookShow = async (req, res) => {;
     const show = await ShowModel.findById(req.body.show).populate("movie");
     const updatedBookSeats = [...show.bookedSeats, ...req.body.seats];
     await ShowModel.findByIdAndUpdate(show, { bookedSeats: updatedBookSeats });
+    const bookingDetails = await BookingModel.findById(newBooking["_id"]).populate("user").populate("show").populate({
+      path: "show",
+      populate: {
+        path: "theatre",
+        model: "theatre",
+      },
+    });
+    //use lodash's get method to acces nested values
+    const emailDetails = {
+      name: bookingDetails.user?.email,
+      movie: bookingDetails.show?.name,
+      theatre:bookingDetails.show?.theatre?.name,
+      date:bookingDetails.show?.date,
+      time: bookingDetails.show?.time, 
+      seats: bookingDetails.seats, 
+      amount:bookingDetails.show?.ticketPrice * bookingDetails.show?.bookedSeats.length, 
+      transactionId: bookingDetails.transactionId
+    }
+    await emailHelper("tickets", bookingDetails.user.email,emailDetails);
     res.send({
       success: true,
       message: "Booking done !",

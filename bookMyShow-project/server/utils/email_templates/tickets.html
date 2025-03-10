@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+        }
+        .header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .ticket-details {
+            margin-top: 20px;
+        }
+        .ticket-details h2 {
+            color: #333;
+        }
+        .details {
+            list-style: none;
+            padding: 0;
+        }
+        .details li {
+            margin: 10px 0;
+            color: #555;
+        }
+        .details li span {
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+    
+        <div class="ticket-details">
+            <h2>Movie Ticket</h2>
+            <ul class="details">
+                <li><span>Name:</span> ##{name}</li>
+                <li><span>Movie:</span> ##{movie}</li>
+                <li><span>Theatre:</span> ##{theatre}</li>
+                <li><span>Date:</span> ##{date}</li>
+                <li><span>Time:</span> ##{time}</li>
+                <li><span>Seats NOs:</span> ##{seats}</li>
+                <li><span>Amount:</span> Rs. ##{amount} </li>
+                <li><span>Transaction ID:</span> ##{transactionId}</li>
+            </ul>
+        </div>
+        <div class="footer">
+            Enjoy your movie!
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -12,6 +12,8 @@ import Partner from "./pages/Partner";
 import User from "./pages/User";
 import SingleMovie from "./pages/SingleMovie";
 import BookShow from "./pages/BookShow";
+import Forget from "./pages/Forget";
+import Reset from "./pages/Reset";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
           <Route path="/admin" element={<ProtectedRoute><Admin/></ProtectedRoute>} />
           <Route path="/partner" element={<ProtectedRoute><Partner/></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><User/></ProtectedRoute>} />
