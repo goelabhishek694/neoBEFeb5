@@ -1,9 +1,9 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const emailHelper = require("../utils/emailHelper");
 require("dotenv").config({ path: "../.env" });
 const privateKey = process.env.JWT_KEY;
-const emailHelper = require("../utils/emailHelper");
 const registerUser = async (req, res) => {
   try {
     const { email } = req.body;
@@ -19,7 +19,10 @@ const registerUser = async (req, res) => {
     }
     // If user does not exist, create a new user and save it to the database
     // write code
-    const newUser = new UserModel(req.body);
+    //hash the password
+    const saltRounds = 10; //the higher the number , the more secure but slower the hashing process
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const newUser = new UserModel({...req.body, password: hashedPassword});
     await newUser.save();
     // Send a response to the user that Registration Successful, Please login
     // write code
@@ -44,7 +47,8 @@ const loginUser = async (req, res) => {
         message: "User does not exists. Please register.",
       });
     }
-    if (passwordFromClient !== user.password) {
+    const match = await bcrypt.compare(passwordFromClient, user.password);
+    if (!match) {
       return res.status(400).json({
         message: "invalid credentials",
       });
