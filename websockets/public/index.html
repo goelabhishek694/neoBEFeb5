@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websockets Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #messages { list-style-type: none; padding: 0; }
+        #messages li { padding: 8px; background: #f3f3f3; border: 1px solid #ddd; margin-top: 5px; }
+    </style>
+
+</head>
+<body>
+    <h1>Websocket</h1>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="input" autocomplete="off"><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        // Form submit handler
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('client_message', input.value);
+                input.value = '';
+            }
+        });
+
+        //listen for messages from the server
+        socket.on('server_message', function(msg) {
+            var item = document.createElement('li');
+            item.textContent = msg;
+            document.getElementById('messages').appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+
+    </script>
+</body>
+</html>
