@@ -41,6 +41,12 @@ async function emailHelper(templateName, receiverEmail, creds) {
           content: 'Some notes about this e-mail',
           contentType: 'text/plain' // optional, would be detected from the filename
       },
+      {
+        filename: 'image.jpg',
+        path: __dirname + '/image.jpg',
+        // cid: 'nyan@example.com' // should be as unique as possible
+    }
+
 ]
     };
     const transporter = nodemailer.createTransport(transportDetails);
