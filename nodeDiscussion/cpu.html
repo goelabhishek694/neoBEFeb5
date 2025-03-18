@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch Request on Button Click</title>
+</head>
+<body>
+  <h1>Fetch Request on Button Click</h1>
+  <button id="fetchButton">Fetch Data</button>
+  <script>
+    console.log("Fetching data...");
+    let requestNumber = 0;
+
+    function fetchData() {
+      console.log("sending request", requestNumber);
+      fetch('http://localhost:3000/fib?number=' + 40 + '&requestNumber=' + requestNumber++)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Response:', data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+    document.getElementById('fetchButton').addEventListener('click', function () {
+      const countId = setInterval(fetchData, 100
+
+);
+      setTimeout(() => {
+        clearInterval(countId);
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
