@@ -10,7 +10,7 @@ io.on("connection", (socket) => {
     console.log("a user is connected", socket.id);
     
     //send a message from the server to client
-    socket.emit("message", "Welcome to the WS server !!");
+    socket.emit("server_message", "Welcome to the WS server !!");
 
     //handle incoming messages from client
     socket.on("client_message", (msg) => {
@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
 
 
 app.get("/", (req, res) => {
-    res.send("hello world");
+    res.sendFile(__dirname+"/public/index.html")
 });
 
 server.listen(3000, () => console.log("listening on port 3000"));
